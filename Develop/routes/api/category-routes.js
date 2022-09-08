@@ -22,6 +22,8 @@ router.get('/:id', (req, res) => {
     },
     include: [Product],
   })
+  .then((category)=>res.json(category))
+  .catch((error) => res.status(500).json(error))
 });
 
 router.post('/', (req, res) => {
@@ -33,19 +35,24 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
-  Category.findOne({
+  Category.update(req.body,{
     where:{
       id:req.params.id
     },
-    include:[Product]
   })
-  .then((category)=>res.json(category))
-  .catch((error) => res.status(500).json(error))
+  .then((category) => res.json(category))
+  .catch ((error) => res.status(400).json(error))
 });
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
-  
+  Category.destroy({
+    where:{
+      id:req.params.id
+    },
+  })
+  .then((category) => res.json(category))
+  .catch ((error) => res.status(400).json(error))
 });
 
 module.exports = router;
