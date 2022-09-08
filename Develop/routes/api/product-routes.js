@@ -33,6 +33,8 @@ router.get('/:id', (req, res) => {
     },
   ],
   })
+  .then((products) => res.json(products))
+  .catch((error) => res.status(400).json(error))
 });
 
 // create new product
