@@ -33,10 +33,19 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a category by its `id` value
+  Category.findOne({
+    where:{
+      id:req.params.id
+    },
+    include:[Product]
+  })
+  .then((category)=>res.json(category))
+  .catch((error) => res.status(500).json(error))
 });
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
+  
 });
 
 module.exports = router;
